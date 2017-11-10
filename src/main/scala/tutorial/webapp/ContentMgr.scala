@@ -1,8 +1,8 @@
 package tutorial.webapp
 
-class ContentMgr extends SemanticComponent {
-  def selectContent(page:String) = {
-    page match {
+object ContentMgr {
+  def selectContent(activeMenu:String): contentFormat = {
+    activeMenu match {
       case "home" =>
         contentFormat("Home", "If you empower or convert with a separate anger, surrender studies you. One must follow the saint in order to view the visitor of strange zen.")
       case "friend-list" =>
@@ -13,6 +13,8 @@ class ContentMgr extends SemanticComponent {
         contentFormat("Search" ,"What are you searching for? Nothing here. Eh, Virtually manifest an admiral.", "-Nothing Found")
       case "logout" =>
         contentFormat("Logout", "This feature is in development. Xiphiass sunt cobaltums de dexter adelphis. Ignigenas mori in alter vasa!")
+      case _ =>
+        contentFormat("NOT FOUND", "Opps you are in wrong place.", "-Go Back")
     }
   }
 }

@@ -11,19 +11,9 @@ object TutorialApp {
     lazy val menuInitActive: String = "Home"
 
     // Build & parse menu html
-    val contentMenuItem = MenuItem(menuItemLeft, menuItemRight, menuInitActive)
-    val component = new SemanticComponent
-    val menuRender = component.topNavigation(contentMenuItem)
+    val menuItem = menuItemFormat(menuItemLeft, menuItemRight, SemanticComponent.slugify(menuInitActive))
 
-    val content = contentFormat("Home", "My Body content", "Footer")
-    val bodyRender = component.contentWrapper(content)
-
-    // append to root div
-    val bodyContent =
-      jq("#root")
-        .append(menuRender)
-        .append(bodyRender)
-
-    component.pastInit(contentMenuItem)
+    // Init build web
+    SemanticComponent.init(menuItem)
   }
 }

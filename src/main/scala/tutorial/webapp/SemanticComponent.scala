@@ -6,21 +6,11 @@ import org.scalajs.dom.html.Div
 import scalatags.JsDom.all._
 import org.scalajs.jquery.{jQuery => jq}
 
-case class menuItemFormat(left: List[String], right: List[String], active: String)
-case class contentFormat(title: String, body: String, footer: String = "No footer Set")
-
 object SemanticComponent {
 
   val wrapper: Div = {
     div(`class` := "ui stackable grid container",
-      div(`class` := "centered column", id := "main-content")
-    ).render
-  }
-
-  val searchContent: Div = {
-    div(`class` := "ui massive icon input",
-      input(`type` := "text", placeholder := "Search for something?"),
-      i(`class` := "search icon")
+      div(`class` := "column", id := "main-content")
     ).render
   }
 
@@ -61,35 +51,14 @@ object SemanticComponent {
 
   def setContent(activeMenu: String): Unit = {
     val content       = ContentMgr.selectContent(activeMenu)
-    val parsedContent     = {
-      div(`class` := "ui segment",
-        h4(`class` := "ui header", content.title),
-        p(content.body),
-        hr,
-        small(style := "display: block; text-align: right", content.footer)
-      ).render
-    }
-
-
-    if(activeMenu == "search") {
-      jq(".column")
-        .addClass("center").addClass("aligned")
-      jq("#main-content")
-        .empty()
-        .append(searchContent)
-        .hide().fadeIn()
-    } else {
-      jq(".column")
-        .removeClass("center").removeClass("aligned")
-      jq("#main-content")
-        .empty()
-        .append(parsedContent)
-        .hide().fadeIn()
-    }
+    jq("#main-content")
+      .empty()
+      .append(content)
+      .hide().fadeIn()
   }
 
   def buildNavigation(child: menuItemFormat): Div = {
-      div(`class` := "ui secondary pointing menu",
+      div(`class` := "ui secondary pointing menu", style := "overflow: auto",
       {
         child.left.map {c =>
           val cslug = slugify(c)
@@ -116,5 +85,6 @@ object SemanticComponent {
 
 }
 
-
-
+case class menuItemFormat(left: List[String], right: List[String], active: String)
+case class defContentFormat(title: String, body: String, footer: String = "No footer Set")
+case class msgContentFormat(image: String, header: String, description: String)

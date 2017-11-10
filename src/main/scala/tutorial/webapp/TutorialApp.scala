@@ -1,7 +1,5 @@
 package tutorial.webapp
 
-import org.scalajs.jquery.{jQuery => jq}
-
 object TutorialApp {
 
   def main(args: Array[String]): Unit = {
